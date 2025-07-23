@@ -1,0 +1,38 @@
+# macOS Finder metadata
+.DS_Store
+
+# Java build
+target/
+*.class
+*.log
+
+# IntelliJ IDEA / Eclipse / VS Code
+.idea/
+.vscode/
+*.iml
+
+# Python cache
+__pycache__/
+*.py[cod]
+
+# Node.js/npm junk (if using any JS)
+node_modules/
+
+# Whisper/Audio temp files
+*.wav
+temp.wav
+
+# Spring Boot
+*.jar
+*.war
+
+# Ollama model cache (if saved)
+.ollama
+
+# System-specific metadata (optional)
+Thumbs.db
+ehthumbs.db
+
+# Ignore Spring Boot config
+src/main/resources/application.properties
+src/main/resources/application.yml

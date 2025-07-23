@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head><title>AI Voice Assistant</title></head>
+<body>
+  <h2>🎤 Ask me something (e.g., "What is the weather?" or "Who is Einstein?")</h2>
+  <button id="recordBtn">🎙 Start Speech</button>
+  <p id="status">Ready to listen...</p>
+  <pre id="response"></pre>
+
+  <script>
+    let recorder, chunks = [];
+
+    document.getElementById("recordBtn").onclick = async () => {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      recorder = new MediaRecorder(stream);
+      recorder.ondataavailable = e => chunks.push(e.data);
+      recorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/wav' });
+        let form = new FormData();
+        form.append('audio', blob, 'voice.wav');
+
+        document.getElementById("status").innerText = "Processing...";
+        const res = await fetch("http://localhost:8080/voice-chat", {
+            method: "POST", body: form
+        });
+        const text = await res.text();
+        document.getElementById("response").innerText = text;
+        document.getElementById("status").innerText = "Complete!";
+        chunks = [];
+      };
+
+      recorder.start();
+      document.getElementById("status").innerText = "Recording... click again to stop.";
+      document.getElementById("recordBtn").onclick = () => recorder.stop();
+    };
+  </script>
+</body>
+</html>

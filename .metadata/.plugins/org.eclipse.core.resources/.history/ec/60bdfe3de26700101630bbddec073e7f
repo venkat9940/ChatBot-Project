@@ -1,0 +1,36 @@
+@RestController
+public class VoiceChatController {
+    private final RestTemplate restTemplate;
+    public VoiceChatController(RestTemplateBuilder builder) {
+        this.restTemplate = builder.build();
+    }
+
+    @PostMapping("/voice-chat")
+    public ResponseEntity<String> voiceChat(@RequestParam("audio") MultipartFile audio) throws IOException {
+        // 1. Call Whisper speech-to-text local server
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("audio", new InputStreamResource(audio.getInputStream()));
+
+        HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+        ResponseEntity<Map> sttResponse = restTemplate.postForEntity(
+            "http://localhost:5005/transcribe",
+            requestEntity,
+            Map.class
+        );
+        String userText = (String) sttResponse.getBody().get("text");
+
+        // 2. Call Ollama Llama2 model locally for response
+        String aiUrl = "http://localhost:11434/api/generate";
+        String requestBody = String.format("{\"model\":\"llama2\",\"prompt\":\"%s\", \"stream\": false}", userText);
+        HttpHeaders aiHeaders = new HttpHeaders();
+        aiHeaders.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<String> aiRequest = new HttpEntity<>(requestBody, aiHeaders);
+
+        ResponseEntity<Map> aiResponse = restTemplate.postForEntity(aiUrl, aiRequest, Map.class);
+        String aiText = (String) aiResponse.getBody().get("response");
+
+        return ResponseEntity.ok(aiText);
+    }
+}
