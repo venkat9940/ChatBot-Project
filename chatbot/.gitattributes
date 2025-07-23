@@ -1,67 +1,73 @@
-# =======================
-# SYSTEM / METADATA
-# =======================
+# =============================
+# macOS / System / Metadata
+# =============================
 .DS_Store
 Thumbs.db
 ehthumbs.db
-Icon?
-.idea/
-.vscode/
+*.bak
+*.tmp
+*.temp
 
-# =======================
-# BUILD/ENV FILES
-# =======================
+# =============================
+# Eclipse / STS / IntelliJ IDEA
+# =============================
+.metadata/
+.settings/
 target/
-build/
-.gradle/
+bin/
+.classpath
+.project
+.factorypath
+
+.idea/
 *.iml
+.vscode/
+*.ipr
+out/
+
+# =============================
+# Java / Spring Boot Build
+# =============================
 *.class
-*.log
 *.jar
 *.war
+*.log
 
-# =======================
-# AUDIO & TEMP FILES
-# =======================
-*.wav
-*.mp3
-*.ogg
-*.webm
-*.pcm
-temp.*
-*.temp
-*.bak
+# =============================
+# Application Config
+# =============================
+src/main/resources/application.properties
+src/main/resources/application.yml
+.env
 
-# =======================
-# PYTHON CACHE & ENVIRONMENTS
-# =======================
+# Leave example config
+!src/main/resources/application.properties.example
+!src/main/resources/application.yml.example
+
+# =============================
+# Python / Whisper
+# =============================
 __pycache__/
 *.pyc
 *.pyo
 *.pyd
-*.env
-.venv/
-venv/
-.envrc
-pip-wheel-metadata/
 *.egg-info/
-.whisper_log/
+venv/
+.venv/
+env/
+temp.wav
+*.wav
 
-# =======================
-# NODE/FRONTEND (Optional if used)
-# =======================
+# =============================
+# Ollama (optional)
+# =============================
+.ollama/
+
+# =============================
+# Node / Frontend (optional)
+# =============================
 node_modules/
 dist/
 npm-debug.log
 yarn-error.log
 coverage/
-
-# =======================
-# CONFIG / SECRETS
-# =======================
-src/main/resources/application.properties
-src/main/resources/application.yml
-.env
-
-# Keep sample property file
-!src/main/resources/application.properties.example
