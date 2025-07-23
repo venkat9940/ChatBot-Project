@@ -1,38 +1,67 @@
-# macOS Finder metadata
+# =======================
+# SYSTEM / METADATA
+# =======================
 .DS_Store
-
-# Java build
-target/
-*.class
-*.log
-
-# IntelliJ IDEA / Eclipse / VS Code
+Thumbs.db
+ehthumbs.db
+Icon?
 .idea/
 .vscode/
+
+# =======================
+# BUILD/ENV FILES
+# =======================
+target/
+build/
+.gradle/
 *.iml
-
-# Python cache
-__pycache__/
-*.py[cod]
-
-# Node.js/npm junk (if using any JS)
-node_modules/
-
-# Whisper/Audio temp files
-*.wav
-temp.wav
-
-# Spring Boot
+*.class
+*.log
 *.jar
 *.war
 
-# Ollama model cache (if saved)
-.ollama
+# =======================
+# AUDIO & TEMP FILES
+# =======================
+*.wav
+*.mp3
+*.ogg
+*.webm
+*.pcm
+temp.*
+*.temp
+*.bak
 
-# System-specific metadata (optional)
-Thumbs.db
-ehthumbs.db
+# =======================
+# PYTHON CACHE & ENVIRONMENTS
+# =======================
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+.venv/
+venv/
+.envrc
+pip-wheel-metadata/
+*.egg-info/
+.whisper_log/
 
-# Ignore Spring Boot config
+# =======================
+# NODE/FRONTEND (Optional if used)
+# =======================
+node_modules/
+dist/
+npm-debug.log
+yarn-error.log
+coverage/
+
+# =======================
+# CONFIG / SECRETS
+# =======================
 src/main/resources/application.properties
 src/main/resources/application.yml
+.env
+
+# Keep sample property file
+!src/main/resources/application.properties.example
